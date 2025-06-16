@@ -1,160 +1,139 @@
+#
 import os
 from config import Config
 
 class Translation(object):
-  START_TXT = """<b>ʜɪ {}
+  START_TXT = """<b>Halo {}
 
-ɪ'ᴍ ᴀ ᴀᴅᴠᴀɴᴄᴇᴅ ᴀᴜᴛᴏ ꜰᴏʀᴡᴀʀᴅ ʙᴏᴛ
-ɪ ᴄᴀɴ ꜰᴏʀᴡᴀʀᴅ ᴀʟʟ ᴍᴇssᴀɢᴇ ꜰʀᴏᴍ ᴏɴᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀɴɴᴇʟ
+Saya adalah bot penerus pesan canggih.
+Saya bisa meneruskan semua pesan dari satu channel ke channel lainnya.
 
-ᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ᴍᴇ</b>"""
+Klik tombol bantuan untuk mengetahui lebih lanjut tentang saya.</b>"""
 
-
-  DONATE_TXT = """<b><i>If you liked me ❤️. consider make a donation to support my developer 👦
+  DONATE_TXT = """<b><i>Jika kamu menyukai saya ❤️, pertimbangkan untuk memberikan donasi untuk mendukung pengembang saya 👦
 
 UPI ID - </i></b><code>TechifyBots@UPI</code>"""
 
-  HELP_TXT = """<b><u>🔆 ʜᴇʟᴘ</b></u>
+  HELP_TXT = """<b><u>🔆 BANTUAN</b></u>
 
-<u>**📚 Available Commands:**</u>
+<u>**📚 Perintah yang Tersedia:**</u>
 
-<b>⏣ __/start - Check I'm alive__ 
-⏣ __/forward - Forward messages__
-⏣ __/unequify - Delete duplicate messages in channels__
-⏣ __/settings - Configure your settings__
-⏣ __/reset - Reset your settings__
-⏣ __/donate - Donate to developer__
-⏣ __/stop - Cancel your ongoing forwarding__</b>
+<b>⏣ __/start - Periksa apakah saya aktif__ 
+⏣ __/forward - Teruskan pesan__
+⏣ __/unequify - Hapus pesan duplikat di channel__
+⏣ __/settings - Atur pengaturanmu__
+⏣ __/reset - Atur ulang pengaturanmu__
+⏣ __/donate - Donasi ke pengembang__
+⏣ __/stop - Batalkan proses penerusan saat ini__</b>
 
-<b><u>💢 Features:</b></u>
-<b>► __Forward message from public channel to your channel without admin permission. if the channel is private need admin permission__
-► __Forward message from private channel to your channel by using userbot(user must be member in there)__
-► __Custom caption__
-► __Custom button__
-► __Support restricted chats__
-► __Skip duplicate messages__
-► __Filter type of messages__
-► __Skip messages based on extensions & keywords & size__</b>
+<b><u>💢 Fitur:</b></u>
+<b>► __Teruskan pesan dari channel publik ke channelmu tanpa perlu jadi admin (jika privat, butuh izin admin)__
+► __Teruskan pesan dari channel privat ke channelmu dengan userbot (user harus menjadi anggota)__
+► __Keterangan (caption) khusus__
+► __Tombol khusus__
+► __Dukungan untuk obrolan terbatas__
+► __Lewati pesan duplikat__
+► __Saring jenis pesan__
+► __Lewati pesan berdasarkan ekstensi, kata kunci, dan ukuran__</b>
 """
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz
-  
-  HOW_USE_TXT = """<b><u>⚠️ Before Forwarding:</b></u>
-<b>► __add a bot or userbot__
-► __add atleast one to channel__ `(your bot/userbot must be admin in there)`
-► __You can add chats or bots by using /settings__
-► __if the **From Channel** is private your userbot must be member in there or your bot must need admin permission in there also__
-► __Then use /forward to forward messages__</b>"""
 
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz 
-  
+  HOW_USE_TXT = """<b><u>⚠️ Sebelum Meneruskan:</b></u>
+<b>► __Tambahkan bot atau userbot__
+► __Tambahkan ke minimal satu channel__ `(bot/userbot kamu harus jadi admin di sana)`
+► __Kamu bisa menambahkan chat atau bot lewat /settings__
+► __Jika **Dari Channel** adalah privat, userbot kamu harus menjadi anggota atau bot kamu harus jadi admin di sana juga__
+► __Kemudian gunakan /forward untuk mulai meneruskan pesan__</b>"""
+
   ABOUT_TXT = """<b>
-╔════❰ ғᴏʀᴡᴀʀᴅ ʙᴏᴛ ❱═❍⊱❁
+╔════❰ BOT PENERUS ❱═❍⊱❁
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼📃ʙᴏᴛ : ғᴏʀᴡᴀʀᴅ ʙᴏᴛ
-║┣⪼👦ᴄʀᴇᴀᴛᴏʀ : ʀᴀʜᴜʟ
-║┣⪼📡ʜᴏsᴛᴇᴅ ᴏɴ : ʜᴇʀᴏᴋᴜ
-║┣⪼🗣️ʟᴀɴɢᴜᴀɢᴇ : ᴘʏᴛʜᴏɴ3
-║┣⪼📚ʟɪʙʀᴀʀʏ : ᴘʏʀᴏɢʀᴀᴍ
-║┣⪼🗒️ᴠᴇʀsɪᴏɴ : 1.0.6
+║┣⪼📃Bot : Bot Penerus
+║┣⪼👦Pengembang : Rahul
+║┣⪼📡Dihost di : Heroku
+║┣⪼🗣️Bahasa : Python3
+║┣⪼📚Library : Pyrogram
+║┣⪼🗒️Versi : 1.0.6
 ║╰━━━━━━━━━━━━━━━➣
 ╚══════════════════❍⊱❁</b>"""
 
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz 
-  
   STATUS_TXT = """<b>
-╔════❰ ʙᴏᴛ sᴛᴀᴛᴜs  ❱═❍⊱❁
+╔════❰ STATUS BOT ❱═❍⊱❁
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼👱 ᴛᴏᴛᴀʟ  ᴜsᴇʀs : <code>{}</code>
+║┣⪼👱 Total Pengguna : <code>{}</code>
 ║┃
-║┣⪼🤖 ᴛᴏᴛᴀʟ ʙᴏᴛ : <code>{}</code>
+║┣⪼🤖 Total Bot : <code>{}</code>
 ║┃
-║┣⪼🔃 ғᴏʀᴡᴀʀᴅɪɴɢs : <code>{}</code>
+║┣⪼🔃 Proses Forward : <code>{}</code>
 ║┃
-║┣⪼🔍 ᴜɴᴇǫᴜɪꜰʏɪɴɢs: <code>0</code>
+║┣⪼🔍 Penghapusan Duplikat: <code>0</code>
 ║╰━━━━━━━━━━━━━━━➣
 ╚══════════════════❍⊱❁</b>""" 
 
   SERVER_TXT = """<b>
-╔════❰ sᴇʀᴠᴇʀ sᴛᴀᴛs  ❱═❍⊱❁۪۪
+╔════❰ STATUS SERVER ❱═❍⊱❁۪۪
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼ ᴛᴏᴛᴀʟ ᴅɪsᴋ sᴘᴀᴄᴇ: <code>38 GB</code>
-║┣⪼ ᴜsᴇᴅ: <code>1.54 GB</code>
-║┣⪼ ꜰʀᴇᴇ: <code>36.46 GB</code>
-║┣⪼ ᴄᴘᴜ: <code>{}%</code>
-║┣⪼ ʀᴀᴍ: <code>{}%</code>
+║┣⪼ Total Ruang Disk: <code>38 GB</code>
+║┣⪼ Terpakai: <code>1.54 GB</code>
+║┣⪼ Tersisa: <code>36.46 GB</code>
+║┣⪼ CPU: <code>{}%</code>
+║┣⪼ RAM: <code>{}%</code>
 ║╰━━━━━━━━━━━━━━━➣
 ╚══════════════════❍⊱❁۪۪</b>"""
   
-  FROM_MSG = "<b>❪ SET SOURCE CHAT ❫\n\nForward the last message or last message link of source chat.\n/cancel - cancel this process</b>"
+  FROM_MSG = "<b>❪ PILIH CHAT SUMBER ❫\n\nTeruskan pesan terakhir atau link pesan terakhir dari chat sumber.\n/cancel - batalkan proses ini</b>"
 
-  TO_MSG = "<b>❪ CHOOSE TARGET CHAT ❫\n\nChoose your target chat from the given buttons.\n/cancel - Cancel this process</b>"
+  TO_MSG = "<b>❪ PILIH CHAT TUJUAN ❫\n\nPilih chat tujuanmu dari tombol yang tersedia.\n/cancel - batalkan proses ini</b>"
 
-  SKIP_MSG = "<b><u>sᴇᴛ ɴᴏ. ᴏғ ᴍᴇssᴀɢᴇs ᴛᴏ sᴋɪᴘ 📃</u></b>\n\n<b>You can skip a certain number of messages and forward the rest.\n\nDefault Skip Number = 0</b>\n\n<b><i>Example: If you enter 0, no messages will be skipped.\nIf you enter 5, the first 5 messages will be skipped.</i></b>\n/cancel <b>- cancel this process</b>"
+  SKIP_MSG = "<b><u>Tentukan jumlah pesan yang ingin dilewati 📃</u></b>\n\n<b>Kamu bisa melewati sejumlah pesan pertama dan meneruskan sisanya.\n\nDefault: 0</b>\n\n<b><i>Contoh: Jika kamu masukkan 0, semua pesan diteruskan.\nJika kamu masukkan 5, 5 pesan pertama akan dilewati.</i></b>\n/cancel <b>- batalkan proses ini</b>"
 
-  CANCEL = "<b>Process Cancelled Succefully !</b>"
+  CANCEL = "<b>Proses berhasil dibatalkan!</b>"
 
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz 
+  BOT_DETAILS = "<b><u>📄 DETAIL BOT</b></u>\n\n<b>➣ NAMA:</b> <code>{}</code>\n<b>➣ BOT ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"
 
-  BOT_DETAILS = "<b><u>📄 BOT DETAILS</b></u>\n\n<b>➣ NAME:</b> <code>{}</code>\n<b>➣ BOT ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"
+  USER_DETAILS = "<b><u>📄 DETAIL USERBOT</b></u>\n\n<b>➣ NAMA:</b> <code>{}</code>\n<b>➣ USER ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"  
 
-  USER_DETAILS = "<b><u>📄 USERBOT DETAILS</b></u>\n\n<b>➣ NAME:</b> <code>{}</code>\n<b>➣ USER ID:</b> <code>{}</code>\n<b>➣ USERNAME:</b> @{}"  
-         
-  TEXT = """<b>╔════❰ ғᴏʀᴡᴀʀᴅ sᴛᴀᴛᴜs  ❱═❍⊱❁
+  TEXT = """<b>╔════❰ STATUS PENERUS ❱═❍⊱❁
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼<b>𖨠 ᴛᴏᴛᴀʟ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Total Pesan: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ғᴇᴄʜᴇᴅ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Diambil: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ғᴏʀᴡᴀʀᴅᴇᴅ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Diteruskan: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ᴅᴜᴘʟɪᴄᴀᴛᴇ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Duplikat: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ᴅᴇʟᴇᴛᴇᴅ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Dihapus: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 sᴋɪᴘᴘᴇᴅ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Dilewati: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ғɪʟᴛᴇʀᴇᴅ ᴍᴇssᴀɢᴇs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Pesan Disaring: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ᴄᴜʀʀᴇɴᴛ sᴛᴀᴛᴜs: </b> <code>{}</code>
+║┣⪼<b>𖨠 Status Saat Ini: </b> <code>{}</code>
 ║┃
-║┣⪼<b>𖨠 ᴘᴇʀᴄᴇɴᴛᴀɢᴇ: </b> <code>{}</code>%
+║┣⪼<b>𖨠 Persentase: </b> <code>{}</code>%
 ║╰━━━━━━━━━━━━━━━➣ 
 ╚════❰ <b>{}</b> ❱══❍⊱❁"""
 
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz 
   DUPLICATE_TEXT = """
-╔════❰ ᴜɴᴇǫᴜɪғʏ sᴛᴀᴛᴜs ❱═❍⊱❁۪۪
+╔════❰ STATUS UNEQUIFY ❱═❍⊱❁۪۪
 ║╭━━━━━━━━━━━━━━━➣
-║┣⪼ <b>ғᴇᴛᴄʜᴇᴅ ғɪʟᴇs:</b> <code>{}</code>
+║┣⪼ <b>File Diambil:</b> <code>{}</code>
 ║┃
-║┣⪼ <b>ᴅᴜᴘʟɪᴄᴀᴛᴇ ᴅᴇʟᴇᴛᴇᴅ:</b> <code>{}</code> 
+║┣⪼ <b>Duplikat Dihapus:</b> <code>{}</code> 
 ║╰━━━━━━━━━━━━━━━➣
 ╚════❰ {} ❱══❍⊱❁۪۪
 """
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz 
-  DOUBLE_CHECK = """<b><u>ᴅᴏᴜʙʟᴇ ᴄʜᴇᴄᴋɪɴɢ 📋</b></u>
 
-<b>ʙᴇꜰᴏʀᴇ ꜰᴏʀᴡᴀʀᴅɪɴɢ ᴛʜᴇ ᴍᴇssᴀɢᴇs ᴄʟɪᴄᴋ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ᴏɴʟʏ ᴀꜰᴛᴇʀ ᴄʜᴇᴄᴋɪɴɢ ᴛʜᴇ ꜰᴏʟʟᴏᴡɪɴɢ</b>
+  DOUBLE_CHECK = """<b><u>PEMERIKSAAN GANDA 📋</b></u>
 
+<b>Sebelum meneruskan pesan, klik tombol YES hanya setelah memeriksa hal-hal berikut</b>
 
-<b>★ ʏᴏᴜʀ ʙᴏᴛ: {botname}</b>
-<b>★ sᴏᴜʀᴄᴇ ᴄʜᴀᴛ: {from_chat}</b>
-<b>★ ᴛᴀʀɢᴇᴛ ᴄʜᴀᴛ: {to_chat}</b>
-<b>★ sᴋɪᴘ ᴍᴇssᴀɢᴇs: {skip}</b>
+<b>★ Bot kamu: {botname}</b>
+<b>★ Chat sumber: {from_chat}</b>
+<b>★ Chat tujuan: {to_chat}</b>
+<b>★ Pesan dilewati: {skip}</b>
 
-<i><b>° {botname} ᴍᴜsᴛ ʙᴇ ᴀᴅᴍɪɴ ɪɴ ᴛᴀʀɢᴇᴛ ᴄʜᴀᴛ</i> ({to_chat})</b>
-<i><b>° ɪꜰ ᴛʜᴇ sᴏᴜʀᴄᴇ ᴄʜᴀᴛ ɪs ᴘʀɪᴠᴀᴛᴇ ʏᴏᴜʀ ᴜsᴇʀʙᴏᴛ ᴍᴜsᴛ ʙᴇ ᴍᴇᴍʙᴇʀ ᴏʀ ʏᴏᴜʀ ʙᴏᴛ ᴍᴜsᴛ ʙᴇ ᴀᴅᴍɪɴ ɪɴ ᴛʜᴇʀᴇ ᴀʟsᴏ</b></i>
+<i><b>° {botname} harus menjadi admin di chat tujuan</i> ({to_chat})</b>
+<i><b>° Jika chat sumber privat, userbot kamu harus menjadi anggota atau bot kamu harus menjadi admin juga</b></i>
 
-<b>ɪꜰ ᴛʜᴇ ᴀʙᴏᴠᴇ ɪs ᴄʜᴇᴄᴋᴇᴅ ᴛʜᴇɴ ᴛʜᴇ ʏᴇs ʙᴜᴛᴛᴏɴ ᴄᴀɴ ʙᴇ ᴄʟɪᴄᴋᴇᴅ</b>"""
+<b>Jika semua di atas sudah diperiksa, kamu bisa klik tombol YES</b>"""
