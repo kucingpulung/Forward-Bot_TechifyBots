@@ -27,11 +27,7 @@ class Database:
                 ban_reason="",
             ),
         )
- 
- #Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz      
-                
+
     async def add_user(self, id, name):
         user = self.new_user(id, name)
         await self.col.insert_one(user)
@@ -115,63 +111,62 @@ class Database:
         if user:
             return user.get('configs', default)
         return default 
-       
+
+    async def get_filters(self, user_id):
+        configs = await self.get_configs(user_id)
+        return configs.get("filters", {})
+
+    async def set_filters(self, user_id, new_filters: dict):
+        configs = await self.get_configs(user_id)
+        configs["filters"] = new_filters
+        await self.update_configs(user_id, configs)
+
     async def add_bot(self, datas):
-       if not await self.is_bot_exist(datas['user_id']):
-          await self.bot.insert_one(datas)
-#Dont Remove My Credit @Silicon_Bot_Update 
-#This Repo Is By @Silicon_Official 
-# For Any Kind Of Error Ask Us In Support Group @Silicon_Botz     
+        if not await self.is_bot_exist(datas['user_id']):
+            await self.bot.insert_one(datas)
+
     async def remove_bot(self, user_id):
-       await self.bot.delete_many({'user_id': int(user_id)})
+        await self.bot.delete_many({'user_id': int(user_id)})
       
     async def get_bot(self, user_id: int):
-       bot = await self.bot.find_one({'user_id': user_id})
-       return bot if bot else None
+        bot = await self.bot.find_one({'user_id': user_id})
+        return bot if bot else None
                                           
     async def is_bot_exist(self, user_id):
-       bot = await self.bot.find_one({'user_id': user_id})
-       return bool(bot)
+        bot = await self.bot.find_one({'user_id': user_id})
+        return bool(bot)
                                           
     async def in_channel(self, user_id: int, chat_id: int) -> bool:
-       channel = await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
-       return bool(channel)
+        channel = await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
+        return bool(channel)
     
     async def add_channel(self, user_id: int, chat_id: int, title, username):
-       channel = await self.in_channel(user_id, chat_id)
-       if channel:
-         return False
-       return await self.chl.insert_one({"user_id": user_id, "chat_id": chat_id, "title": title, "username": username})
+        channel = await self.in_channel(user_id, chat_id)
+        if channel:
+            return False
+        return await self.chl.insert_one({"user_id": user_id, "chat_id": chat_id, "title": title, "username": username})
     
     async def remove_channel(self, user_id: int, chat_id: int):
-       channel = await self.in_channel(user_id, chat_id )
-       if not channel:
-         return False
-       return await self.chl.delete_many({"user_id": int(user_id), "chat_id": int(chat_id)})
+        channel = await self.in_channel(user_id, chat_id)
+        if not channel:
+            return False
+        return await self.chl.delete_many({"user_id": int(user_id), "chat_id": int(chat_id)})
     
     async def get_channel_details(self, user_id: int, chat_id: int):
-       return await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
+        return await self.chl.find_one({"user_id": int(user_id), "chat_id": int(chat_id)})
        
     async def get_user_channels(self, user_id: int):
-       channels = self.chl.find({"user_id": int(user_id)})
-       return [channel async for channel in channels]
+        channels = self.chl.find({"user_id": int(user_id)})
+        return [channel async for channel in channels]
      
-    async def get_filters(self, user_id):
-       filters = []
-       filter = (await self.get_configs(user_id))['filters']
-       for k, v in filter.items():
-          if v == False:
-            filters.append(str(k))
-       return filters
-              
     async def add_frwd(self, user_id):
-       return await self.nfy.insert_one({'user_id': int(user_id)})
+        return await self.nfy.insert_one({'user_id': int(user_id)})
     
     async def rmve_frwd(self, user_id=0, all=False):
-       data = {} if all else {'user_id': int(user_id)}
-       return await self.nfy.delete_many(data)
+        data = {} if all else {'user_id': int(user_id)}
+        return await self.nfy.delete_many(data)
     
     async def get_all_frwd(self):
-       return self.nfy.find({})
+        return self.nfy.find({})
 
 db = Database(Config.DATABASE_URI, Config.DATABASE_NAME)
